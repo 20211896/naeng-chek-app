@@ -3,8 +3,8 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 export default function Btn_1_4({ title, onPress, fontSize = 12 }) {
     const dynamicPadding = {
-        paddingHorizontal: fontSize * 0.3,
-        paddingVertical: fontSize,
+        paddingHorizontal: fontSize,
+        paddingVertical: fontSize * 0.3,
     };
 
     return (
