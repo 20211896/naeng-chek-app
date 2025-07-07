@@ -20,19 +20,18 @@ export default function MyFoodBox({ navigation }) {
         <View style={styles.food}>
             <Image style={styles.foodImg} source={{ uri: 'https://picsum.photos/80/80' }} />
 
-            <View style={styles.textContainer}>
-                <View style={styles.foodText}>
-                    <Text>DDAY</Text>
-                    <Text>재료</Text>
-                </View>
-                <View style={styles.foodText}>
-                    <Text style={styles.quantityText}>{remaining}/{total}개</Text>
-                    <View style={styles.progressContainer}>
-                        <View style={[styles.progressBar, {
-                            width: `${ratio * 100}%`,
-                            backgroundColor: getStatusColor()
-                        }]} />
-                    </View>
+            <View style={styles.foodText1}>
+                <Text style={styles.dday}>DDAY</Text>
+                <Text>재료</Text>
+            </View>
+
+            <View style={styles.foodText2}>
+                <Text style={styles.quantityText}>{remaining}/{total}개</Text>
+                <View style={styles.progressContainer}>
+                    <View style={[styles.progressBar, {
+                        width: `${ratio * 100}%`,
+                        backgroundColor: getStatusColor()
+                    }]} />
                 </View>
             </View>
 
@@ -43,14 +42,12 @@ export default function MyFoodBox({ navigation }) {
         </View>
 
     );
-} const styles = StyleSheet.create({
+}const styles = StyleSheet.create({
     food: {
         padding: 10,
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 5,
-
-        //HACK : 레이아웃 확인용
         borderWidth: 1,
         borderColor: '#000000',
     },
@@ -59,13 +56,25 @@ export default function MyFoodBox({ navigation }) {
         aspectRatio: 1,
         width: '11.5%',
     },
-    textContainer: {
-        flexDirection: 'row',
-        gap: 26,
-        flex: 1,
-    },
-    foodText: {
+    foodText1: {
         flexDirection: 'column',
+        flex: 1, 
+    },
+    dday: {
+        color:'#F50000',
+        fontWeight: 'bold',
+        // FIXME: 반응형 글자크기 생각 > 12 넘어가면 줄넘어감..
+        fontSize: 12,
+    },
+    foodText2: {
+        flexDirection: 'column',
+        flex: 1.5, 
+        marginLeft: 15, 
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        gap: 12,
+        marginLeft: 22.5, 
     },
     quantityText: {
         fontSize: 12,
@@ -82,9 +91,4 @@ export default function MyFoodBox({ navigation }) {
         height: '100%',
         borderRadius: 3,
     },
-    buttonContainer: {
-        flexDirection: 'row',
-        gap: 12,
-    }
 });
-
