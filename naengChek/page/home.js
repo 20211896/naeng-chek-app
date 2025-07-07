@@ -1,9 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Button, ScrollView, Dimensions } from 'react-native';
 import BtmNav from '../component/btmNav';
+import TodayFoodBox from '../component/homeComp/todayFoodBox';
+import Btn_1_4 from '../component/btnStyle/size1-4';
+import MyFoodBox from '../component/homeComp/myFoodBox';
 
+
+const screenHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
+    // TODO: 데이터 연결 및 필터/편집등 버튼 로직 구현 필요
     return (
         <View style={styles.container}>
             <View style={styles.homeHeader}>
@@ -11,11 +17,40 @@ export default function Home({ navigation }) {
                 <Text style={styles.headerIcon}>알림</Text>
             </View>
 
-            <ScrollView>
-                <View><Text>배너</Text></View>
-                <View><Text>피드백형 알람 메시지</Text></View>
-                <View><Text>오늘의 추천 요리</Text></View>
-                <View><Text>나의식재료현황</Text></View>
+            <ScrollView style={styles.scrollStyle}>
+                <View style={styles.homeBanner}><Text>배너</Text></View>
+
+                <View style={styles.alarmMsg}><Text>피드백형 알람 메시지</Text></View>
+
+                <View style={styles.todayFood}>
+                    <Text style={styles.todayFoodText}>오늘의 추천 요리</Text>
+                    <View style={styles.foodTable}>
+                        <TodayFoodBox />
+                        <TodayFoodBox />
+                        <TodayFoodBox />
+                    </View>
+                </View>
+
+                <View style={styles.myFood}>
+                    <Text style={styles.myFoodText}>나의 식재료 현황</Text>
+
+                    <View style={styles.filterTable}>
+                        <View style={styles.filterRight}>
+                            <Btn_1_4 title="전체 식재료 편집" onPress={() => { }} />
+                        </View>
+                        <View style={styles.filterLeft}>
+                            <Btn_1_4 title="유통기한 필터" onPress={() => { }} />
+                        </View>
+                    </View>
+
+                    <View style={styles.myFoodTable}>
+                        <MyFoodBox />
+                        <MyFoodBox />
+                        <MyFoodBox />
+                        <MyFoodBox />
+                    </View>
+                </View>
+
             </ScrollView>
 
             <BtmNav navigation={navigation} />
@@ -30,19 +65,91 @@ const styles = StyleSheet.create({
     homeHeader: {
         marginTop: 66,
         marginBottom: 27,
-        height: '4.43%',
         paddingHorizontal: 24,
         alignItems: 'center',
-        flexDirection: 'row',
         justifyContent: 'space-between',
+        flexDirection: 'row',
+        height: '4.43%',
+
         //HACK : 레이아웃 확인용
         backgroundColor: "#dadada"
     },
     headerIcon: {
         width: 36,
         height: 36,
+
         //HACK : 아이콘으로 바꿀땐 지우기 - 텍스트 설정용
         lineHeight: 36,
-        textAlign:"center",
-    }
+        textAlign: "center",
+    },
+
+    scrollStyle: {
+        flex: 1,
+        paddingHorizontal: 24,
+    },
+    homeBanner: {
+        marginBottom: 34,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: screenHeight * 0.1355,
+
+        //HACK : 레이아웃 확인용
+        backgroundColor: "#dadada",
+    },
+    alarmMsg: {
+        marginBottom: 50,
+        height: screenHeight * 0.085,
+
+        //HACK : 레이아웃 확인용
+        backgroundColor: "#dadada",
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    todayFood: {
+        marginBottom: 9,
+        paddingHorizontal: 4,
+        flexDirection: 'column',
+
+        //HACK : 레이아웃 확인용
+        borderWidth: 1,
+        borderColor: '#000000',
+    },
+    todayFoodText: {
+        fontSize: 18,
+    },
+    foodTable: {
+        padding: 18,
+        gap: 12,
+    },
+
+    myFood: {
+        marginBottom: 34,
+        paddingHorizontal: 4,
+        flexDirection: 'column',
+
+        //HACK : 레이아웃 확인용
+        borderWidth: 1,
+        borderColor: '#000000',
+    },
+    myFoodText: {
+        marginBottom: 23,
+        fontSize: 18,
+    },
+    filterTable: {
+        paddingHorizontal: 6,
+    },
+    filterLeft: {
+        alignItems: 'flex-start',
+    },
+    filterRight: {
+        alignItems: 'flex-end',
+    },
+    myFoodTable: {
+        marginBottom: 26,
+        padding: 8,
+        gap: 15,
+    },
+
+
 });
