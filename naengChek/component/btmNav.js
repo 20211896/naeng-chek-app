@@ -8,7 +8,7 @@ export default function BottomNavigation({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.navIcon}>1</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Ingredient')}>
                 <Text style={styles.navIcon}>2</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
