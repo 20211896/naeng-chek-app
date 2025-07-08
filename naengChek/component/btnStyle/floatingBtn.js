@@ -7,7 +7,7 @@ export default function FloatingButton({
     onPhotoPress,
     onManualPress,
     size = 48,
-    backgroundColor = '#575757', // 기본 버튼 색상 변경
+    backgroundColor = '#575757',
 }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
