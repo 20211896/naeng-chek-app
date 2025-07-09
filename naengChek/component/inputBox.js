@@ -3,7 +3,7 @@ import { TextInput, StyleSheet, Dimensions } from 'react-native';
 const screenHeight = Dimensions.get('window').height;
 
 export default function InputBox({
-    placeholder = "이메일을 입력해주세요",
+    placeholder = "",
     value,
     onChangeText,
     fontSize = 18,
