@@ -12,21 +12,20 @@ export default function Login({ navigation }) {
             <View style={styles.headerLogo}></View>
 
             <View style={styles.inputBox}>
-                <InputBox />
-                <InputBox />
+                <InputBox placeholder="아이디를 입력해 주세요"/>
+                <InputBox placeholder="비밀번호를 입력해 주세요"/>
             </View>
-            <FullWidthBtn title="로그인" style={styles.loginBox} />
+            <FullWidthBtn title="로그인" style={styles.loginBox} onPress={() => {navigation.navigate('Home')}}/>
             <View style={styles.textBox}>
                 <TouchableOpacity onPress={() => { }}>
                     <View >회원가입</View>
                 </TouchableOpacity>
                 <Text>|</Text>
-                <TouchableOpacity onPress={() => { }}>
-                    <View>이메일 찾기</View>
+                <TouchableOpacity onPress={() => {{navigation.navigate('IdFind')}}}>
+                    <View>아이디 찾기</View>
                 </TouchableOpacity>
                 <Text>|</Text>
                 <TouchableOpacity onPress={() => { }}>
-
                     <View>비밀번호 찾기</View>
                 </TouchableOpacity>
             </View>
