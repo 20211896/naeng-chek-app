@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import Btn_1_4 from '../btnStyle/size1-4';
 
 const screenWidth = Dimensions.get('window').width;
 const imageSize = (screenWidth - 40 - 13) * 0.13;

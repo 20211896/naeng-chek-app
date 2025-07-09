@@ -2,9 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, Button, ScrollView, Dimensions } from 'react-native';
 import BtmNav from '../component/btmNav';
 import TodayFoodBox from '../component/homeComp/todayFoodBox';
-import Btn_1_4 from '../component/btnStyle/size1-4';
 import MyFoodBox from '../component/homeComp/myFoodBox';
-
+import CustomBtn from '../component/btnStyle/customBtn';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -36,10 +35,24 @@ export default function Home({ navigation }) {
 
                     <View style={styles.filterTable}>
                         <View style={styles.filterRight}>
-                            <Btn_1_4 title="전체 식재료 편집" onPress={() => { }} />
+                            <CustomBtn
+                                title="전체 식재료 편집"
+                                onPress={() => { }}
+                                paddingXFactor={1}
+                                paddingYFactor={0.3}
+                                borderRadius={4}
+                                textColor="black"
+                            />
                         </View>
                         <View style={styles.filterLeft}>
-                            <Btn_1_4 title="유통기한 필터" onPress={() => { }} />
+                            <CustomBtn
+                                title="유통기한 필터"
+                                onPress={() => { }}
+                                paddingXFactor={1}
+                                paddingYFactor={0.3}
+                                borderRadius={4}
+                                textColor="black"
+                            />
                         </View>
                     </View>
 
@@ -150,6 +163,4 @@ const styles = StyleSheet.create({
         padding: 8,
         gap: 15,
     },
-
-
 });
