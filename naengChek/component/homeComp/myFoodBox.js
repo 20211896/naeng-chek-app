@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import Btn_1_2 from '../btnStyle/size1-2';
+import CustomBtn from '../btnStyle/customBtn';
 
 export default function MyFoodBox({ navigation }) {
     const remaining = 3;
@@ -9,9 +9,9 @@ export default function MyFoodBox({ navigation }) {
 
     const getStatusColor = () => {
         // HACK: 임시 색&비율 설정
-        if (ratio > 0.7) return '#4CAF50'; // 초록 - 충분
-        if (ratio > 0.3) return '#FF9800'; // 주황 - 보통
-        return '#F44336'; // 빨강 - 부족
+        if (ratio > 0.7) return '#4CAF50';
+        if (ratio > 0.3) return '#FF9800';
+        return '#F44336';
     };
 
     return (
@@ -36,13 +36,19 @@ export default function MyFoodBox({ navigation }) {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Btn_1_2 title="요리 추천" onPress={() => { }} />
-                <Btn_1_2 title="편집" onPress={() => { }} />
+                <CustomBtn title="요리 추천"
+                    textColor="#000"
+                    borderRadius={4}
+                    onPress={() => { }} />
+                <CustomBtn title="편집"
+                    textColor="#000"
+                    borderRadius={4}
+                    onPress={() => { }} />
             </View>
         </View>
 
     );
-}const styles = StyleSheet.create({
+} const styles = StyleSheet.create({
     food: {
         padding: 10,
         flexDirection: 'row',
@@ -58,23 +64,23 @@ export default function MyFoodBox({ navigation }) {
     },
     foodText1: {
         flexDirection: 'column',
-        flex: 1, 
+        flex: 1,
     },
     dday: {
-        color:'#F50000',
+        color: '#F50000',
         fontWeight: 'bold',
         // FIXME: 반응형 글자크기 생각 > 12 넘어가면 줄넘어감..
         fontSize: 12,
     },
     foodText2: {
         flexDirection: 'column',
-        flex: 1.5, 
-        marginLeft: 15, 
+        flex: 1.5,
+        marginLeft: 15,
     },
     buttonContainer: {
         flexDirection: 'row',
         gap: 12,
-        marginLeft: 22.5, 
+        marginLeft: 22.5,
     },
     quantityText: {
         fontSize: 12,

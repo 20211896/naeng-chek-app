@@ -4,10 +4,8 @@ import BtmNav from '../component/btmNav';
 import IngredBox from '../component/ingredComp/ingredBox';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import FilterBtn_1_2 from '../component/btnStyle/filterSize1-2';
+import CustomBtn from '../component/btnStyle/customBtn';
 import FloatingButton from '../component/btnStyle/floatingBtn';
-
-
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -20,7 +18,6 @@ export default function Ingredient({ navigation }) {
     // TODO: 필터 버튼 onPress 동작 구현 -> 바텀 시트
     // TODO: 필터에 따른 IngredBox 보여지는 조건 설정
     // TODO: IngredBox 생성에 따른 박스 자동생성 설정(지금은 하드코딩으로 생성해둠)
-
 
     const sortPress = () => {
     };
@@ -56,29 +53,45 @@ export default function Ingredient({ navigation }) {
             </View>
 
             <View style={styles.filterBox}>
-                <FilterBtn_1_2
+                <CustomBtn
                     title={sortTitle}
                     fontSize={12}
                     onPress={sortPress}
                     icon={<AntDesign name="down" size={12} color="black" />}
+                    paddingXFactor={0.8}
+                    paddingYFactor={0.4}
+                    borderRadius={99}
+                    textColor="black"
                 />
-                <FilterBtn_1_2
+                <CustomBtn
                     title={sortType}
                     fontSize={12}
                     onPress={() => { }}
                     icon={<AntDesign name="down" size={12} color="black" />}
+                    paddingXFactor={0.8}
+                    paddingYFactor={0.4}
+                    borderRadius={99}
+                    textColor="black"
                 />
-                <FilterBtn_1_2
+                <CustomBtn
                     title={sortStorage}
                     fontSize={12}
                     onPress={() => { }}
                     icon={<AntDesign name="down" size={12} color="black" />}
+                    paddingXFactor={0.8}
+                    paddingYFactor={0.4}
+                    borderRadius={99}
+                    textColor="black"
                 />
-                <FilterBtn_1_2
+                <CustomBtn
                     title={sortExpiration}
                     fontSize={12}
                     onPress={() => { }}
                     icon={<AntDesign name="down" size={12} color="black" />}
+                    paddingXFactor={0.8}
+                    paddingYFactor={0.4}
+                    borderRadius={99}
+                    textColor="black"
                 />
             </View>
 
