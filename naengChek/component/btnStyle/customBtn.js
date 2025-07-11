@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 
 export default function CustomBtn({
@@ -10,22 +10,29 @@ export default function CustomBtn({
     paddingXFactor = 1,
     paddingYFactor = 0.5,
     textColor = 'black',
+    backgroundColor = '#dadada',
     borderRadius = 12,
+    pressedStyle = null, // 새로 추가된 prop
+    pressedTextColor = null, // 눌렸을 때 텍스트 색상
 }) {
+    const [isPressed, setIsPressed] = useState(false);
+
     const dynamicPadding = {
         paddingHorizontal: fontSize * paddingXFactor,
         paddingVertical: fontSize * paddingYFactor,
     };
 
     const renderContent = () => {
+        const currentTextColor = isPressed && pressedTextColor ? pressedTextColor : textColor;
+        
         if (!icon) {
-            return <Text style={[styles.text, { fontSize, color: textColor }]}>{title}</Text>;
+            return <Text style={[styles.text, { fontSize, color: currentTextColor }]}>{title}</Text>;
         }
 
-        const textElement = <Text style={[styles.text, { fontSize, color: textColor }]}>{title}</Text>;
+        const textElement = <Text style={[styles.text, { fontSize, color: currentTextColor }]}>{title}</Text>;
         const iconElement = React.cloneElement(icon, {
             size: icon.props.size || fontSize + 4,
-            color: icon.props.color || textColor,
+            color: icon.props.color || currentTextColor,
         });
 
         return (
@@ -38,7 +45,18 @@ export default function CustomBtn({
     };
 
     return (
-        <TouchableOpacity style={[styles.button, dynamicPadding, { borderRadius }]} onPress={onPress}>
+        <TouchableOpacity 
+            style={[
+                styles.button, 
+                { backgroundColor },
+                dynamicPadding, 
+                { borderRadius },
+                isPressed && pressedStyle // pressedStyle이 있을 때만 적용
+            ]} 
+            onPressIn={() => setIsPressed(true)}
+            onPressOut={() => setIsPressed(false)}
+            onPress={onPress}
+        >
             {renderContent()}
         </TouchableOpacity>
     );
@@ -46,9 +64,9 @@ export default function CustomBtn({
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#dadada',
         alignItems: 'center',
         justifyContent: 'center',
+        borderWidth: 0, // 테두리 제거
     },
     text: {
         fontWeight: '400',
