@@ -43,7 +43,6 @@ export default function CustomBottomSheet({
             backgroundStyle={styles.background}
             handleStyle={styles.handle}
             handleIndicatorStyle={styles.handleIndicator}
-            animationConfigs={styles.animation}
             animateOnMount={true}
             backdropComponent={renderBackdrop}
             {...props}
@@ -93,9 +92,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-    },
-    animation: {
-        duration: 300,
-        easing: 'easeOut',
     },
 });
