@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 
+/*NOTE: CustomBtn 컴포넌트 프롭 설명
+ * @param {string} title - 버튼에 표시될 텍스트
+ * @param {function} onPress - 버튼 클릭 시 실행될 함수
+ * @param {number} [fontSize=12] - 텍스트 크기
+ * @param {ReactElement} [icon=null] - 버튼에 표시될 아이콘 (React Element)
+ * @param {string} [iconPosition='right'] - 아이콘 위치 ('left' 또는 'right')
+ * @param {number} [paddingXFactor=1] - 가로 패딩 배수 (fontSize * paddingXFactor)
+ * @param {number} [paddingYFactor=0.5] - 세로 패딩 배수 (fontSize * paddingYFactor)
+ * @param {string} [textColor='black'] - 기본 텍스트 색상
+ * @param {string} [backgroundColor='#dadada'] - 기본 배경 색상
+ * @param {number} [borderRadius=12] - 버튼 모서리 둥글기
+ * @param {object} [pressedStyle=null] - 버튼 눌렸을 때 적용될 스타일 객체
+ * @param {string} [pressedTextColor=null] - 버튼 눌렸을 때 텍스트 색상
+ */
 export default function CustomBtn({
     title,
     onPress,
@@ -12,8 +26,8 @@ export default function CustomBtn({
     textColor = 'black',
     backgroundColor = '#dadada',
     borderRadius = 12,
-    pressedStyle = null, // 새로 추가된 prop
-    pressedTextColor = null, // 눌렸을 때 텍스트 색상
+    pressedStyle = null,
+    pressedTextColor = null,
 }) {
     const [isPressed, setIsPressed] = useState(false);
 
@@ -51,7 +65,7 @@ export default function CustomBtn({
                 { backgroundColor },
                 dynamicPadding, 
                 { borderRadius },
-                isPressed && pressedStyle // pressedStyle이 있을 때만 적용
+                isPressed && pressedStyle
             ]} 
             onPressIn={() => setIsPressed(true)}
             onPressOut={() => setIsPressed(false)}
@@ -66,7 +80,7 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 0, // 테두리 제거
+        borderWidth: 0,
     },
     text: {
         fontWeight: '400',
