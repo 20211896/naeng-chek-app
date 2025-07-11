@@ -18,15 +18,15 @@ export default function Login({ navigation }) {
             <FullWidthBtn title="로그인" style={styles.loginBox} onPress={() => {navigation.navigate('Home')}}/>
             <View style={styles.textBox}>
                 <TouchableOpacity onPress={() => { }}>
-                    <View >회원가입</View>
+                    <Text >회원가입</Text>
                 </TouchableOpacity>
                 <Text>|</Text>
                 <TouchableOpacity onPress={() => {{navigation.navigate('IdFind')}}}>
-                    <View>아이디 찾기</View>
+                    <Text>아이디 찾기</Text>
                 </TouchableOpacity>
                 <Text>|</Text>
                 <TouchableOpacity onPress={() => { }}>
-                    <View>비밀번호 찾기</View>
+                    <Text>비밀번호 찾기</Text>
                 </TouchableOpacity>
             </View>
 

@@ -19,7 +19,7 @@ export default function IdFind({ navigation }) {
                 <InputBox placeholder="이름" />
                 <InputBox placeholder="010-1234-5678" />
             </View>
-            <FullWidthBtn title="다음" style={styles.loginBox} onPress={() => { navigation.navigate() }} />
+            <FullWidthBtn title="다음" style={styles.loginBox} onPress={() => { navigation.navigate('Home') }} />
 
 
         </View>
