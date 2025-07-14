@@ -6,7 +6,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomBtn from '../component/btnStyle/customBtn';
 import FloatingButton from '../component/btnStyle/floatingBtn';
-import CustomBottomSheet from '../component/ingredComp/CustomBottomSheet';
+import CustomBottomSheet from '../component/CustomBottomSheet';
 
 const screenHeight = Dimensions.get('window').height;
 
