@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import FullWidthBtn from '../component/btnStyle/fullWidthBtn';
-import CustomBtn from '../component/btnStyle/customBtn';
 import InputBox from '../component/inputBox';
 
 const screenHeight = Dimensions.get('window').height;
