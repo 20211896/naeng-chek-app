@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import FullWidthBtn from '../component/btnStyle/fullWidthBtn';
 import CustomBtn from '../component/btnStyle/customBtn';
 import InputBox from '../component/inputBox';
@@ -18,10 +18,10 @@ export default function Login({ navigation }) {
             <FullWidthBtn title="로그인" style={styles.loginBox} onPress={() => {navigation.navigate('Home')}}/>
             <View style={styles.textBox}>
                 <TouchableOpacity onPress={() => { }}>
-                    <Text >회원가입</Text>
+                    <Text>회원가입</Text>
                 </TouchableOpacity>
                 <Text>|</Text>
-                <TouchableOpacity onPress={() => {{navigation.navigate('IdFind')}}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('IdFind')}}>
                     <Text>아이디 찾기</Text>
                 </TouchableOpacity>
                 <Text>|</Text>
@@ -43,6 +43,7 @@ export default function Login({ navigation }) {
                         paddingXFactor={0.9}
                         paddingYFactor={0.9}
                         textColor="#fff"
+                        backgroundColor="#FEE500"
                     />
                     <CustomBtn
                         title="네이버"
@@ -51,6 +52,7 @@ export default function Login({ navigation }) {
                         paddingXFactor={0.9}
                         paddingYFactor={0.9}
                         textColor="#fff"
+                        backgroundColor="#03C75A"
                     />
                     <CustomBtn
                         title="구 글"
@@ -59,14 +61,14 @@ export default function Login({ navigation }) {
                         paddingXFactor={0.9}
                         paddingYFactor={0.9}
                         textColor="#fff"
+                        backgroundColor="#4285F4"
                     />
                 </View>
             </View>
-
-
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -108,8 +110,8 @@ const styles = StyleSheet.create({
     },
     bottomText: {
         fontSize: 18,
-        fontWeight: 550,
-        marginBottom:15,
+        fontWeight: '550',
+        marginBottom: 15,
     },
     bottomBtnBox: {
         flexDirection: 'row',
