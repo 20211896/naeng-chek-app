@@ -223,7 +223,10 @@ export default function Ingredient({ navigation }) {
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.bottomSheetHeader}>
                         <Text style={styles.bottomSheetTitle}>정렬</Text>
-                        <TouchableOpacity onPress={closeBottomSheet}>
+                        <TouchableOpacity 
+                            onPress={closeBottomSheet}
+                            style={styles.closeButton}
+                        >
                             <AntDesign name="close" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
@@ -241,7 +244,9 @@ export default function Ingredient({ navigation }) {
                                 {option}
                             </Text>
                             {sortTitle === option && (
-                                <AntDesign name="check" size={24} color="black" />
+                                <View style={styles.checkIcon}>
+                                    <AntDesign name="check" size={24} color="black" />
+                                </View>
                             )}
                         </TouchableOpacity>
                     ))}
@@ -254,7 +259,10 @@ export default function Ingredient({ navigation }) {
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.bottomSheetHeader}>
                         <Text style={styles.bottomSheetTitle}>필터</Text>
-                        <TouchableOpacity onPress={closeBottomSheet}>
+                        <TouchableOpacity 
+                            onPress={closeBottomSheet}
+                            style={styles.closeButton}
+                        >
                             <AntDesign name="close" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
@@ -349,15 +357,24 @@ export default function Ingredient({ navigation }) {
                     보유한 식재료
                 </Text>
                 <View style={styles.headerIcons}>
-                    <AntDesign
-                        name="search1"
-                        size={24}
-                        color="black"
-                        style={styles.headerIcon}
+                    <TouchableOpacity 
+                        style={styles.headerIconButton}
                         onPress={() => { }}
-                    />
-                    <Ionicons name="calendar-clear-outline" size={24} color="black" style={styles.headerIcon} onPress={() => { }} />
-                    <Ionicons name="trash-outline" size={24} color="black" style={styles.headerIcon} onPress={() => { }} />
+                    >
+                        <AntDesign name="search1" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.headerIconButton}
+                        onPress={() => { }}
+                    >
+                        <Ionicons name="calendar-clear-outline" size={24} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.headerIconButton}
+                        onPress={() => { }}
+                    >
+                        <Ionicons name="trash-outline" size={24} color="black" />
+                    </TouchableOpacity>
                 </View>
             </View>
 
@@ -424,7 +441,7 @@ export default function Ingredient({ navigation }) {
             <BtmNav navigation={navigation} />
 
             <CustomBottomSheet
-                bottomSheetModalRef={bottomSheetRef}
+                ref={bottomSheetRef}
                 snapPoints={["30%"]}
                 onBackdropPress={handleBackdropPress}
                 onChange={(index) => {
@@ -437,7 +454,7 @@ export default function Ingredient({ navigation }) {
             </CustomBottomSheet>
 
             <CustomBottomSheet
-                bottomSheetModalRef={filterBottomSheetRef}
+                ref={filterBottomSheetRef}
                 snapPoints={["80%"]}
                 enableDynamicSizing={true}
                 enableOverDrag={false}
@@ -476,8 +493,14 @@ const styles = StyleSheet.create({
     headerIcons: {
         flexDirection: 'row'
     },
-    headerIcon: {
+    headerIconButton: {
         padding: 10,
+    },
+    closeButton: {
+        padding: 5,
+    },
+    checkIcon: {
+        padding: 2,
     },
     filterContainer: {
         width: '100%',

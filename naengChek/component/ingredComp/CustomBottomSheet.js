@@ -1,23 +1,21 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import BottomSheet, { BottomSheetView, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { StyleSheet } from "react-native";
 
 /*NOTE: CustomBottomSheet 컴포넌트 프롭 설명
- * bottomSheetModalRef - 바텀시트 참조 객체 (useRef로 생성)
  * children - 바텀시트 내부에 렌더링될 컴포넌트
  * snapPoints - 바텀시트 스냅 포인트 배열 (기본값: ["30%"])
  * enableDynamicSizing - 동적 크기 조절 활성화 여부 (기본값: true)
  * onBackdropPress - 외부 배경 클릭 시 실행될 함수
  * ...props - 추가 BottomSheet 프롭들
  */
-export default function CustomBottomSheet({
-    bottomSheetModalRef,
+const CustomBottomSheet = forwardRef(({
     children,
     snapPoints = ["30%"],
     enableDynamicSizing = true,
     onBackdropPress,
     ...props
-}) {
+}, ref) => {
     // NOTE: Backdrop 컴포넌트 렌더링 함수
     const renderBackdrop = React.useCallback(
         (props) => (
@@ -33,7 +31,7 @@ export default function CustomBottomSheet({
 
     return (
         <BottomSheet
-            ref={bottomSheetModalRef}
+            ref={ref}
             index={-1}
             snapPoints={snapPoints}
             style={styles.container}
@@ -52,7 +50,10 @@ export default function CustomBottomSheet({
             </BottomSheetView>
         </BottomSheet>
     );
-}
+});
+
+// displayName 설정
+CustomBottomSheet.displayName = 'CustomBottomSheet';
 
 const styles = StyleSheet.create({
     container: {
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 16,
         borderTopWidth: 2,
         borderTopColor: '#9CA3AF',
+        boxShadow: '0 -2px 4px rgba(0, 0, 0, 0.1)',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -94,3 +96,5 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 16,
     },
 });
+
+export default CustomBottomSheet;
