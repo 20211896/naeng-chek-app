@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, Alert, TouchableOpacity, Platform } from 'react-native';
-// import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import FullWidthBtn from '../../component/btnStyle/fullWidthBtn';
 import InputBox from '../../component/inputBox';
+import Feather from '@expo/vector-icons/Feather';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -13,6 +14,13 @@ export default function UserBirthDate({ navigation, route }) {
     const [editableName, setEditableName] = useState(userName);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date(1990, 0, 1));
+
+    const formatDateToString = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}.${month}.${day}`;
+    };
 
     const formatBirthDate = (value) => {
         const numbers = value.replace(/\D/g, '');
@@ -74,18 +82,17 @@ export default function UserBirthDate({ navigation, route }) {
         return name.trim().length >= 1;
     };
 
-    /*
     const onDateChange = (event, date) => {
         if (Platform.OS === 'android') {
             setShowDatePicker(false);
         }
-        
+
         if (event.type === 'set' && date) {
             setSelectedDate(date);
             const formattedDate = formatDateToString(date);
             setBirthDate(formattedDate);
         }
-        
+
         if (event.type === 'dismissed') {
             setShowDatePicker(false);
         }
@@ -94,7 +101,10 @@ export default function UserBirthDate({ navigation, route }) {
     const showDatePickerModal = () => {
         setShowDatePicker(true);
     };
-    */
+
+    const hideDatePicker = () => {
+        setShowDatePicker(false);
+    };
 
     const handleNext = () => {
         if (!isValidName(editableName)) {
@@ -140,14 +150,22 @@ export default function UserBirthDate({ navigation, route }) {
 
             <View style={styles.inputBox}>
                 <View style={styles.inputContainer}>
-                    <InputBox
-                        placeholder="1990.01.01"
-                        value={birthDate}
-                        onChangeText={handleBirthDateChange}
-                        keyboardType="number-pad"
-                        maxLength={10}
-                        autoFocus={true}
-                    />
+                    <View style={styles.inputWithButton}>
+                        <InputBox
+                            placeholder="1990.01.01"
+                            value={birthDate}
+                            onChangeText={handleBirthDateChange}
+                            keyboardType="number-pad"
+                            maxLength={10}
+                            autoFocus={true}
+                        />
+                        <TouchableOpacity
+                            style={styles.calendarButton}
+                            onPress={showDatePickerModal}
+                        >
+                            <Feather name="calendar" size={20} color="#666" />
+                        </TouchableOpacity>
+                    </View>
                     {birthDate.length > 0 && !isValidBirthDate(birthDate) && (
                         <Text style={styles.errorText}>올바른 생년월일을 입력해 주세요 (예: 1990.01.01)</Text>
                     )}
@@ -163,6 +181,7 @@ export default function UserBirthDate({ navigation, route }) {
                     value={editableName}
                     onChangeText={setEditableName}
                     placeholder="이름을 입력해 주세요"
+                    keyboardType="default"
                     maxLength={20}
                     autoCapitalize="words"
                 />
@@ -171,20 +190,45 @@ export default function UserBirthDate({ navigation, route }) {
                 )}
             </View>
 
-            {/*
-            {showDatePicker && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={selectedDate}
-                    mode="date"
-                    is24Hour={true}
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    onChange={onDateChange}
-                    maximumDate={new Date()}
-                    minimumDate={new Date(1900, 0, 1)}
-                />
+            {/* NOTE: iOS에서는 모달 형태로, Android에서는 조건부 렌더링 */}
+            {Platform.OS === 'ios' ? (
+                showDatePicker && (
+                    <View style={styles.datePickerContainer}>
+                        <View style={styles.datePickerHeader}>
+                            <TouchableOpacity onPress={hideDatePicker}>
+                                <Text style={styles.datePickerButton}>취소</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={hideDatePicker}>
+                                <Text style={[styles.datePickerButton, styles.confirmButton]}>확인</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={selectedDate}
+                            mode="date"
+                            is24Hour={true}
+                            display="spinner"
+                            onChange={onDateChange}
+                            maximumDate={new Date()}
+                            minimumDate={new Date(1900, 0, 1)}
+                            style={styles.datePicker}
+                        />
+                    </View>
+                )
+            ) : (
+                showDatePicker && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={selectedDate}
+                        mode="date"
+                        is24Hour={true}
+                        display="default"
+                        onChange={onDateChange}
+                        maximumDate={new Date()}
+                        minimumDate={new Date(1900, 0, 1)}
+                    />
+                )
             )}
-            */}
 
             <FullWidthBtn
                 title="다음"
@@ -225,6 +269,19 @@ const styles = StyleSheet.create({
     inputContainer: {
         gap: 8,
     },
+    inputWithButton: {
+        position: 'relative',
+    },
+    calendarButton: {
+        position: 'absolute',
+        right: 15,
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        zIndex: 1,
+    },
     errorText: {
         fontSize: 12,
         color: '#FF3B30',
@@ -246,5 +303,35 @@ const styles = StyleSheet.create({
     },
     disabledButton: {
         opacity: 0.5,
+    },
+    // NOTE: DateTimePicker 스타일 - iOS
+    datePickerContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'white',
+        borderTopWidth: 1,
+        borderTopColor: '#e0e0e0',
+        paddingBottom: 20,
+        zIndex: 1000,
+    },
+    datePickerHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
+    },
+    datePickerButton: {
+        fontSize: 16,
+        color: '#007AFF',
+    },
+    confirmButton: {
+        fontWeight: '600',
+    },
+    datePicker: {
+        backgroundColor: 'white',
     },
 });
