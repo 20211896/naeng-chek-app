@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, Alert, TouchableOpacity } from 'react-native';
 import FullWidthBtn from '../../component/btnStyle/fullWidthBtn';
 import InputBox from '../../component/inputBox';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 const screenHeight = Dimensions.get('window').height;
 
-export default function UserIdentify({ navigation }) {
-    const [name, setName] = useState('');
+export default function UserIdentify({ navigation, route}) {
+    
+    // TODO: 추후 PASS 인증을 먼저 onPress로 연결후, 인증결과 성공 받으면 사용자 데이터 그대로 넘김
+    const handlePassSuccess = () => {
+    navigation.navigate('UserEmail', {
+        ...route.params,
+    });
+};
 
     return (
         <View style={styles.container}>
@@ -33,7 +38,7 @@ export default function UserIdentify({ navigation }) {
                     title="본인인증 하러 가기"
                     style={styles.nextBox}
                     // TODO: 추후 pass sdk 연결
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={handlePassSuccess}
                 />
             </View>
         </View>
