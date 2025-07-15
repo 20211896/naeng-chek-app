@@ -4,8 +4,6 @@ import FullWidthBtn from '../../component/btnStyle/fullWidthBtn';
 import InputBox from '../../component/inputBox';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-const screenHeight = Dimensions.get('window').height;
-
 export default function UserData({ navigation }) {
     const [name, setName] = useState('');
 
