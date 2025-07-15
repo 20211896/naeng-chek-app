@@ -17,7 +17,7 @@ export default function Login({ navigation }) {
             </View>
             <FullWidthBtn title="로그인" style={styles.loginBox} onPress={() => {navigation.navigate('Home')}}/>
             <View style={styles.textBox}>
-                <TouchableOpacity onPress={() => { }}>
+                <TouchableOpacity onPress={() => {navigation.navigate('UserData')}}>
                     <Text>회원가입</Text>
                 </TouchableOpacity>
                 <Text>|</Text>
