@@ -21,7 +21,6 @@ export default function UserPhone({ navigation, route }) {
     const formatPhoneNumber = (value) => {
         const numbers = value.replace(/\D/g, '');
 
-        // 최대 11자리까지만 허용 (01012345678)
         const limitedNumbers = numbers.slice(0, 11);
 
         if (limitedNumbers.length <= 3) {
