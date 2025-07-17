@@ -12,15 +12,35 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "이 앱은 냉장고 식재료 사진을 선택하기 위해 사진에 액세스합니다.",
+          "cameraPermission": "이 앱은 냉장고 식재료 사진을 촬영하기 위해 카메라에 액세스합니다."
+        }
+      ]
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "이 앱은 냉장고 식재료 사진을 촬영하기 위해 카메라에 액세스합니다.",
+        "NSPhotoLibraryUsageDescription": "이 앱은 냉장고 식재료 사진을 선택하기 위해 사진 라이브러리에 액세스합니다.",
+        "NSPhotoLibraryAddUsageDescription": "이 앱은 촬영한 사진을 저장하기 위해 사진 라이브러리에 액세스합니다."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
