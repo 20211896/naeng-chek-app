@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View, Alert } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function FloatingButton({
     onAddPress,
     onClosePress,
     onPhotoPress,
     onManualPress,
+    onImageSelected,
+    onOCRStart,
     size = 48,
     backgroundColor = '#575757',
 }) {
@@ -29,15 +32,94 @@ export default function FloatingButton({
         paddingHorizontal: isExpanded ? 0 : 12,
     };
 
+    const openGallery = async () => {
+        try {
+            const mediaPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            
+            if (mediaPermission.status !== 'granted') {
+                Alert.alert('권한 필요', '갤러리 접근 권한이 필요합니다.');
+                return;
+            }
+
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: false,
+                quality: 0.8,
+            });
+
+            if (!result.canceled && result.assets && result.assets.length > 0) {
+                const imageUri = result.assets[0].uri;
+                const imageInfo = {
+                    uri: imageUri,
+                    width: result.assets[0].width,
+                    height: result.assets[0].height,
+                    fileSize: result.assets[0].fileSize,
+                    type: result.assets[0].type,
+                    fileName: result.assets[0].fileName || `image_${Date.now()}.jpg`,
+                };
+                
+                onOCRStart && onOCRStart(imageInfo);
+                onImageSelected && onImageSelected(imageUri);
+            }
+        } catch (error) {
+            console.error('Gallery Error: ', error);
+            Alert.alert('오류', '갤러리를 실행할 수 없습니다.');
+        }
+    };
+
+    // HACK: 앨범 버튼 추가 불가능 -> 카메라 종료시 앨범 열기
+    const openCameraWithGallery = async () => {
+        try {
+            const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+            
+            if (cameraPermission.status !== 'granted') {
+                Alert.alert('권한 필요', '카메라 권한이 필요합니다.');
+                return;
+            }
+
+            const result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: false,
+                quality: 0.8,
+            });
+
+            if (!result.canceled && result.assets && result.assets.length > 0) {
+                const imageUri = result.assets[0].uri;
+                const imageInfo = {
+                    uri: imageUri,
+                    width: result.assets[0].width,
+                    height: result.assets[0].height,
+                    fileSize: result.assets[0].fileSize,
+                    type: result.assets[0].type,
+                    fileName: result.assets[0].fileName || `image_${Date.now()}.jpg`,
+                    source: 'camera'
+                };
+                
+                // NOTE: OCR 로딩 페이지로 이동
+                onOCRStart && onOCRStart(imageInfo);
+                onImageSelected && onImageSelected(imageUri);
+            } else if (result.canceled) {
+                // NOTE: 카메라에서 취소했을 때 갤러리 옵션 제공
+                Alert.alert(
+                    '갤러리에서 선택',
+                    '갤러리에서 사진을 선택하시겠습니까?',
+                    [
+                        { text: '예', onPress: openGallery },
+                        { text: '아니오', style: 'cancel' },
+                    ]
+                );
+            }
+        } catch (error) {
+            console.error('Camera Error: ', error);
+            Alert.alert('오류', '카메라를 실행할 수 없습니다.');
+        }
+    };
+
     return (
         <>
             {isExpanded && <View style={styles.overlay} />}
-            
+
             <View style={styles.container}>
-                {/* 
-                    NOTE: 활성화될 때 나타나는 뷰 
-                    TODO: 추가 뷰 버튼 onPress 각각 페이지 이동 구현 필요
-                */}
                 {isExpanded && (
                     <View style={styles.expandedView}>
                         <TouchableOpacity
@@ -45,6 +127,7 @@ export default function FloatingButton({
                             onPress={() => {
                                 onPhotoPress && onPhotoPress();
                                 setIsExpanded(false);
+                                openCameraWithGallery();
                             }}
                         >
                             <View style={styles.optionIcon}></View>

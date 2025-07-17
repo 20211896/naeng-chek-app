@@ -207,14 +207,6 @@ export default function Ingredient({ navigation }) {
         }
     };
 
-    const getActiveFilterCount = () => {
-        let count = 0;
-        if (selectedType !== '식재료종류') count++;
-        if (selectedStorage !== '보관장소') count++;
-        if (selectedExpiration !== '유통기한') count++;
-        return count;
-    };
-
     const renderBottomSheetContent = () => {
         if (currentBottomSheetType === 'sort') {
             const sortOptions = ['유통기한 빠른 순', '최신 등록순', '가나다 순'];
@@ -223,7 +215,7 @@ export default function Ingredient({ navigation }) {
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.bottomSheetHeader}>
                         <Text style={styles.bottomSheetTitle}>정렬</Text>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             onPress={closeBottomSheet}
                             style={styles.closeButton}
                         >
@@ -259,7 +251,7 @@ export default function Ingredient({ navigation }) {
                 <View style={styles.bottomSheetContent}>
                     <View style={styles.bottomSheetHeader}>
                         <Text style={styles.bottomSheetTitle}>필터</Text>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             onPress={closeBottomSheet}
                             style={styles.closeButton}
                         >
@@ -357,19 +349,19 @@ export default function Ingredient({ navigation }) {
                     보유한 식재료
                 </Text>
                 <View style={styles.headerIcons}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.headerIconButton}
                         onPress={() => { }}
                     >
                         <AntDesign name="search1" size={24} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.headerIconButton}
                         onPress={() => { }}
                     >
                         <Ionicons name="calendar-clear-outline" size={24} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.headerIconButton}
                         onPress={() => { }}
                     >
@@ -437,7 +429,11 @@ export default function Ingredient({ navigation }) {
                 ))}
             </ScrollView>
 
-            {!isBottomSheetOpen && <FloatingButton />}
+            {!isBottomSheetOpen && <FloatingButton onOCRStart={(imageInfo) => {
+                navigation.navigate('OCRLoading', {
+                    imageData: imageInfo
+                });
+            }} />}
             <BtmNav navigation={navigation} />
 
             <CustomBottomSheet
